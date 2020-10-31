@@ -10,10 +10,14 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
-
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: 'Azure Pass - Sponsorship(876b9fe0-62f2-4493-8fa9-195476c375e7)'
+    subscriptionId: '876b9fe0-62f2-4493-8fa9-195476c375e7'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'akslab'
+    location: 'Central US'
+    templateLocation: 'Linked artifact'
+    csmFile: 'AzureResourceGroup2/WindowsVirtualMachineScaleSet.json'
+    deploymentMode: 'Incremental'
